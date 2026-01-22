@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
             // Aquí, en un caso real, decodificarías el token o harías otra llamada
             // para obtener los detalles completos del usuario.
             // Por simplicidad, asumimos que el username es suficiente por ahora.
-            const tempUser = { username: username, id: response.userId || null }; // Si el backend devuelve userId
+            const tempUser = response.user || { username: username, id: response.userId || response.id || null }; // Si el backend devuelve userId o id
             
             setToken(newToken);
             setUser(tempUser);
