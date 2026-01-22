@@ -20,13 +20,16 @@ const ProfilePage = () => {
 
             try {
                 setLoading(true);
-                const userProfile = await getUserProfile(user.id, token); // Asume que user.id existe
+                console.log("User object:", user); // Agregar logging para verificar el usuario
+                if (!user || !user.id) {
+                    throw new Error("User ID is not available.");
+                }
+                const userProfile = await getUserProfile(user.id, token);
                 setProfile(userProfile);
                 setError('');
             } catch (err) {
                 console.error("Failed to fetch profile:", err);
                 setError('Failed to load profile. Please try again.');
-                // Podría redirigir a login si el token es inválido
                 if (err.response && err.response.status === 401) {
                     logout();
                     navigate('/login');
